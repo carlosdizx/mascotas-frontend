@@ -1,7 +1,7 @@
 <template>
   <v-dialog v-model="dialog" max-width="500px">
     <template v-slot:activator="{ on, attrs }">
-      <v-btn color="indigo" dark class="mb-2" v-bind="attrs" v-on="on">
+      <v-btn color="green darken-3" dark class="mb-2" v-bind="attrs" v-on="on">
         Nuevo propietario
       </v-btn>
     </template>
@@ -12,13 +12,13 @@
 
       <v-card-text>
         <v-container>
-          <v-form autocomplete="off">
-            <v-text-field label="Nombres" />
-            <v-text-field label="Apellidos" />
-            <v-text-field label="Documento" />
-            <v-text-field label="Direccion" />
-            <v-text-field label="Telefono" />
-            <v-text-field label="Correo" />
+          <v-form autocomplete="off" @submit.prevent="crearPropietario">
+            <v-text-field v-model="nombres" label="Nombres" />
+            <v-text-field v-model="apellidos" label="Apellidos" />
+            <v-text-field v-model="documento" label="Documento" />
+            <v-text-field v-model="direccion" label="Direccion" />
+            <v-text-field v-model="telefono" label="Telefono" />
+            <v-text-field v-model="correo" label="Correo" />
           </v-form>
         </v-container>
       </v-card-text>
@@ -28,7 +28,7 @@
         <v-btn color="red darken-1" dark @click="dialog = !dialog">
           Cancelar
         </v-btn>
-        <v-btn color="success darken-1">
+        <v-btn color="success darken-1" @click="crearPropietario">
           Guardar
         </v-btn>
       </v-card-actions>
@@ -37,11 +37,38 @@
 </template>
 
 <script>
+import * as url from "url";
+
 export default {
   name: "FormPropietario",
   data: () => ({
-    dialog: false
-  })
+    dialog: false,
+    nombres: "Carlos Ernesto",
+    apellidos: "Diaz Basante",
+    documento: "1082749257",
+    direccion: "Mz G casa 5, los heroes",
+    telefono: "3163930876",
+    correo: "carlodiaz@umariana.edu.co"
+  }),
+  methods: {
+    async crearPropietario() {
+      const result = await fetch(
+        "http://localhost/mascotas/?id_propietario_ins",
+        {
+          method: "POST",
+          body: JSON.stringify({
+            nombres: this.nombres,
+            apellidos: this.apellidos,
+            documento: this.documento,
+            direccion: this.direccion,
+            telefono: this.telefono,
+            correo: this.correo
+          })
+        }
+      ).then(result => result.json());
+      this.dialog = false;
+    }
+  }
 };
 </script>
 
