@@ -13,12 +13,7 @@
       </v-toolbar>
     </template>
     <template v-slot:item.acciones="{ item }">
-      <v-btn fab dark small color="info darken-4">
-        <v-icon>
-          mdi-eye
-        </v-icon>
-      </v-btn>
-      <v-btn fab dark small color="orange darken-4">
+      <v-btn fab dark small color="info">
         <v-icon>
           mdi-pencil
         </v-icon>
@@ -26,6 +21,14 @@
       <v-btn fab dark small color="red darken-4">
         <v-icon>
           mdi-delete
+        </v-icon>
+      </v-btn>
+    </template>
+    <template v-slot:item.id="{ item }">
+      <v-btn fab dark small color="info darken-4">
+        {{item.id}}
+        <v-icon>
+          mdi-eye
         </v-icon>
       </v-btn>
     </template>
@@ -39,7 +42,7 @@ export default {
     dialog: false,
     dialogDelete: false,
     columnas: [
-      { text: "ID", value: "id" },
+      { text: "Mas detalles", align: "start", sortable: false, value: "id" },
       { text: "Nombres", value: "nombres" },
       { text: "Apellidos", value: "apellidos" },
       { text: "Documento", value: "documento" },
@@ -48,17 +51,7 @@ export default {
       { text: "Correo", value: "correo", sortable: false },
       { text: "Acciones", value: "acciones", sortable: false }
     ],
-    filas: [
-      {
-        id: 1,
-        nombres: "Carlos",
-        apellidos: "Diaz",
-        documento: 1082749257,
-        direccion: "Mz g Casa 5, Los heroes",
-        telefono: 3163930876,
-        correo: "carlodiaz@umariana.edu.co"
-      }
-    ]
+    filas: []
   }),
   methods: {
     cargarDatos() {
