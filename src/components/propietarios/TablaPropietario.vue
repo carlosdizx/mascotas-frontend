@@ -62,7 +62,12 @@ export default {
     cargarDatos() {
       fetch("http://localhost/mascotas/?all_propietarios")
         .then(response => response.json())
-        .then(result => (this.filas = result));
+        .then(result => {
+          console.log(result[0]);
+          if (!result[0].mensaje) {
+            this.filas = result.data;
+          }
+        });
     }
   },
   mounted() {
