@@ -14,11 +14,7 @@
       </v-toolbar>
     </template>
     <template v-slot:item.acciones="{ item }">
-      <v-btn fab small color="warning">
-        <v-icon>
-          mdi-pencil
-        </v-icon>
-      </v-btn>
+      <FormPropietarioEditar :id="item.id" @refrescar="cargarPropietarios" />
       <v-btn fab dark small color="red darken-4" @click="eliminar(item.id)">
         <v-icon>
           mdi-delete
@@ -38,11 +34,13 @@
 
 <script>
 import FormPropietario from "@/components/propietarios/FormPropietario";
+import FormPropietarioEditar from "@/components/propietarios/FormPropietarioEditar";
 import Swal from "sweetalert2";
 export default {
   name: "TablaPropietario",
   components: {
-    FormPropietario
+    FormPropietario,
+    FormPropietarioEditar
   },
   data: () => ({
     dialog: false,
