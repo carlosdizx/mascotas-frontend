@@ -59,7 +59,17 @@ export default {
         correo: "carlodiaz@umariana.edu.co"
       }
     ]
-  })
+  }),
+  methods: {
+    cargarDatos() {
+      fetch("http://localhost/mascotas/?all_propietarios")
+        .then(response => response.json())
+        .then(result => (this.filas = result));
+    }
+  },
+  mounted() {
+    this.cargarDatos();
+  }
 };
 </script>
 
