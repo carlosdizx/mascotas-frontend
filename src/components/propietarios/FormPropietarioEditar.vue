@@ -1,7 +1,15 @@
 <template>
   <v-dialog v-model="dialog" max-width="500px">
     <template v-slot:activator="{ on, attrs }">
-      <v-btn color="warning" small fab class="mb-2" v-bind="attrs" v-on="on">
+      <v-btn
+        color="warning"
+        small
+        fab
+        class="mb-2"
+        v-bind="attrs"
+        v-on="on"
+        @click="buscarPropietario"
+      >
         <v-icon>mdi-pencil</v-icon>
       </v-btn>
     </template>
@@ -77,21 +85,21 @@ export default {
       this.telefono = datos.telefono;
       this.correo = datos.correo;
     },
-    async actualizarPropietario(){
+    async actualizarPropietario() {
       const result = await fetch(
-          "http://localhost/mascotas/?id_propietario_upd",
-          {
-            method: "POST",
-            body: JSON.stringify({
-              id: this.id,
-              nombres: this.nombres,
-              apellidos: this.apellidos,
-              documento: this.documento,
-              direccion: this.direccion,
-              telefono: this.telefono,
-              correo: this.correo
-            })
-          }
+        "http://localhost/mascotas/?id_propietario_upd",
+        {
+          method: "POST",
+          body: JSON.stringify({
+            id: this.id,
+            nombres: this.nombres,
+            apellidos: this.apellidos,
+            documento: this.documento,
+            direccion: this.direccion,
+            telefono: this.telefono,
+            correo: this.correo
+          })
+        }
       ).then(result => result.json());
 
       await Swal.fire({

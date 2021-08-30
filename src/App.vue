@@ -1,6 +1,7 @@
 <template>
   <v-app>
     <v-main>
+      <Toolbar />
       <v-container>
         <router-view />
       </v-container>
@@ -9,9 +10,13 @@
 </template>
 
 <script lang="ts">
+import Toolbar from "@/components/Toolbar.vue";
 import Vue from "vue";
 
 export default Vue.extend({
-  name: "App"
+  name: "App",
+  components: {
+    Toolbar
+  }
 });
 </script>
