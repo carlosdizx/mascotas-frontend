@@ -37,7 +37,7 @@
 </template>
 
 <script>
-import * as url from "url";
+import Swal from "sweetalert2";
 
 export default {
   name: "FormPropietario",
@@ -66,7 +66,14 @@ export default {
           })
         }
       ).then(result => result.json());
+
+      await Swal.fire({
+        title: "Registro exitoso 👍",
+        timer: 1300,
+        showConfirmButton: false
+      });
       this.dialog = false;
+      this.$emit("refrescar");
     }
   }
 };

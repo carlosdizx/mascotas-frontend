@@ -10,7 +10,7 @@
         <v-toolbar-title>Propietarios</v-toolbar-title>
         <v-divider class="mx-4" inset vertical></v-divider>
         <v-spacer></v-spacer>
-        <FormPropietario />
+        <FormPropietario @refrescar="cargarDatos" />
       </v-toolbar>
     </template>
     <template v-slot:item.acciones="{ item }">
