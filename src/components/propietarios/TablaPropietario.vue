@@ -10,7 +10,7 @@
         <v-toolbar-title>Propietarios</v-toolbar-title>
         <v-divider class="mx-4" inset vertical></v-divider>
         <v-spacer></v-spacer>
-        <FormPropietario @refrescar="cargarDatos" />
+        <FormPropietario @refrescar="cargarPropietarios" />
       </v-toolbar>
     </template>
     <template v-slot:item.acciones="{ item }">
@@ -19,7 +19,7 @@
           mdi-pencil
         </v-icon>
       </v-btn>
-      <v-btn fab dark small color="red darken-4">
+      <v-btn fab dark small color="red darken-4" @click="eliminar(item.id)">
         <v-icon>
           mdi-delete
         </v-icon>
@@ -38,6 +38,7 @@
 
 <script>
 import FormPropietario from "@/components/propietarios/FormPropietario";
+import Swal from "sweetalert2";
 export default {
   name: "TablaPropietario",
   components: {
@@ -59,19 +60,42 @@ export default {
     filas: []
   }),
   methods: {
-    cargarDatos() {
+    cargarPropietarios() {
       fetch("http://localhost/mascotas/?all_propietarios")
         .then(response => response.json())
         .then(result => {
-          console.log(result[0]);
           if (!result[0].mensaje) {
-            this.filas = result.data;
+            this.filas = result;
           }
         });
+    },
+    async eliminar(id) {
+      await Swal.fire({
+        title: "¿Desea eliminar este registro?",
+        text:
+          "Tenga en cuenta que no se podra eliminar si el propietario tiene mascotas registradas",
+        icon: "warning",
+        showCancelButton: true,
+        confirmButtonColor: "#42b03d",
+        cancelButtonColor: "#d33",
+        confirmButtonText: "Si, eliminar!"
+      }).then(async result => {
+        if (result.isConfirmed) {
+          const resultado = await fetch(
+            "http://localhost/mascotas/?id_propietario_del=" + id
+          ).then(result => result.json());
+          if (resultado.mensaje !== "eliminado") {
+            await Swal.fire("No eliminado!", "No se pudo eliminar", "error");
+          } else {
+            await Swal.fire("Eliminado!", "Propietario eliminado", "success");
+          }
+          await this.cargarPropietarios();
+        }
+      });
     }
   },
   mounted() {
-    this.cargarDatos();
+    this.cargarPropietarios();
   }
 };
 </script>
