@@ -10,10 +10,11 @@
         <v-toolbar-title>Propietarios</v-toolbar-title>
         <v-divider class="mx-4" inset vertical></v-divider>
         <v-spacer></v-spacer>
+        <FormPropietario />
       </v-toolbar>
     </template>
     <template v-slot:item.acciones="{ item }">
-      <v-btn fab dark small color="info">
+      <v-btn fab small color="warning">
         <v-icon>
           mdi-pencil
         </v-icon>
@@ -25,8 +26,8 @@
       </v-btn>
     </template>
     <template v-slot:item.id="{ item }">
-      <v-btn fab dark small color="info darken-4">
-        {{item.id}}
+      <v-btn fab dark small color="info darken-2">
+        {{ item.id }}
         <v-icon>
           mdi-eye
         </v-icon>
@@ -36,8 +37,12 @@
 </template>
 
 <script>
+import FormPropietario from "@/components/propietarios/FormPropietario";
 export default {
   name: "TablaPropietario",
+  components: {
+    FormPropietario
+  },
   data: () => ({
     dialog: false,
     dialogDelete: false,
