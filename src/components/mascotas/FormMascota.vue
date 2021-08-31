@@ -17,7 +17,7 @@
             <v-text-field v-model="edad" label="Apellidos" />
             <v-text-field v-model="preocedimiento" label="Documento" />
             <v-text-field v-model="raza" label="Direccion" />
-            <v-select />
+            <v-select label="Tipo de animal" :items="tipos" item-text="nombre" />
           </v-form>
         </v-container>
       </v-card-text>
@@ -46,10 +46,19 @@ export default {
     edad: "",
     preocedimiento: "",
     raza: "",
-    telefono: "",
-    correo: ""
+    tipos: []
   }),
-  methods: {}
+  methods: {
+    async cargarInfo() {
+      let resultado = await fetch(
+        "http://localhost/mascotas/tipo_mascotas.php?all"
+      ).then(result => result.json());
+      this.tipos = resultado[0];
+    }
+  },
+  mounted() {
+    this.cargarInfo();
+  }
 };
 </script>
 
