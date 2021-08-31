@@ -13,9 +13,9 @@
           </v-btn>
         </router-link>
         <v-divider class="mx-4" inset vertical></v-divider>
-        <v-toolbar-title>Detalles del propietario</v-toolbar-title>
+        <v-toolbar-title>{{ propietario }}</v-toolbar-title>
         <v-divider class="mx-4" inset vertical></v-divider>
-        <v-toolbar-title>Sus mascotas</v-toolbar-title>
+        <v-toolbar-title>{{ documento }}</v-toolbar-title>
         <v-spacer></v-spacer>
       </v-toolbar>
     </template>
@@ -26,6 +26,8 @@
 export default {
   name: "TablaMascotas",
   data: () => ({
+    propietario: "",
+    documento: "",
     columnas: [
       { text: "ID", align: "start", sortable: false, value: "id" },
       { text: "Nombre", value: "nombre" },
@@ -33,22 +35,27 @@ export default {
       { text: "Procedimiento", value: "procedimiento" },
       { text: "Raza", value: "raza" },
       { text: "Foto", value: "ruta_foto" },
-      { text: "Tipo", value: "tipo" },
+      { text: "Tipo", value: "tipo" }
     ],
     filas: []
   }),
   methods: {
-    cargarInfo() {
-      fetch(
+    async cargarInfo() {
+      let resultado = await fetch(
+        "http://localhost/mascotas/propietario.php?id_propietario=" +
+          this.$route.params.id
+      ).then(result => result.json());
+      this.propietario = resultado[0].nombres + " " + resultado[0].apellidos;
+      this.documento = resultado[0].documento;
+
+      resultado = await fetch(
         "http://localhost/mascotas/mascota.php?all_propietario=" +
           this.$route.params.id
-      )
-        .then(response => response.json())
-        .then(result => {
-          if (!result[0].mensaje) {
-            this.filas = result[0];
-          }
-        });
+      ).then(response => response.json());
+
+      if (!resultado[0].mensaje) {
+        this.filas = resultado[0];
+      }
     }
   },
   mounted() {

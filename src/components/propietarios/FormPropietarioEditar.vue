@@ -64,18 +64,7 @@ export default {
   methods: {
     async buscarPropietario() {
       const result = await fetch(
-        "http://localhost/mascotas/propietario.php?id_propietario=" + this.id,
-        {
-          method: "POST",
-          body: JSON.stringify({
-            nombres: this.nombres,
-            apellidos: this.apellidos,
-            documento: this.documento,
-            direccion: this.direccion,
-            telefono: this.telefono,
-            correo: this.correo
-          })
-        }
+        "http://localhost/mascotas/propietario.php?id_propietario=" + this.id
       ).then(result => result.json());
       const datos = result[0];
       this.nombres = datos.nombres;
