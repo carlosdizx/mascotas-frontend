@@ -63,13 +63,13 @@ export default {
     async cargarInfo() {
       this.id = this.$route.params.id;
       let resultado = await fetch(
-        "http://localhost/mascotas/propietario.php?id_propietario=" + this.id
+        "http://localhost/clinica/mascotas/propietario.php?id_propietario=" + this.id
       ).then(result => result.json());
       this.propietario = resultado[0].nombres + " " + resultado[0].apellidos;
       this.documento = resultado[0].documento;
 
       resultado = await fetch(
-        "http://localhost/mascotas/mascota.php?all_propietario=" + this.id
+        "http://localhost/clinica/mascotas/mascota.php?all_propietario=" + this.id
       ).then(response => response.json());
 
       if (!resultado[0].mensaje) {

@@ -76,7 +76,7 @@ export default {
   methods: {
     async cargarInfo() {
       const resultado = await fetch(
-        "http://localhost/mascotas/tipo_mascotas.php?all"
+        "http://localhost/clinica/mascotas/tipo_mascotas.php?all"
       ).then(result => result.json());
       this.tipos = resultado[0];
     },
@@ -97,7 +97,7 @@ export default {
 
       let respuesta = null;
       await axios
-        .post("http://localhost/mascotas/mascota.php?insertar", formData)
+        .post("http://localhost/clinica/mascotas/mascota.php?insertar", formData)
         .then(response => (respuesta = response));
       if (respuesta.data.mensaje === "registro exitoso") {
         await Swal.fire("Registro exitoso", "", "success");
