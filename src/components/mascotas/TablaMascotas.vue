@@ -21,11 +21,7 @@
       </v-toolbar>
     </template>
     <template v-slot:item.acciones="{ item }">
-      <v-btn fab small color="info" @click="">
-        <v-icon>
-          mdi-eye
-        </v-icon>
-      </v-btn>
+      <Visor :id="item.id" />
       <v-btn fab small color="warning" @click="">
         <v-icon>
           mdi-pencil
@@ -42,9 +38,10 @@
 
 <script>
 import FormMascota from "@/components/mascotas/FormMascota";
+import Visor from "@/components/mascotas/Visor";
 export default {
   name: "TablaMascotas",
-  components: { FormMascota },
+  components: { FormMascota,Visor },
   data: () => ({
     propietario: "",
     documento: "",
@@ -57,7 +54,7 @@ export default {
       { text: "Acciones", value: "acciones", sortable: false }
     ],
     filas: [],
-    id: "0"
+    id: "0",
   }),
   methods: {
     async cargarInfo() {
