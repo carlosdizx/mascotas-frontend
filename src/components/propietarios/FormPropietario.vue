@@ -67,6 +67,12 @@ export default {
         }
       ).then(result => result.json());
 
+      this.nombres = "";
+      this.apellidos = "";
+      this.documento = "";
+      this.direccion = "";
+      this.telefono = "";
+      this.correo = "";
       await Swal.fire({
         title: "Registro exitoso 👍",
         timer: 1300,
