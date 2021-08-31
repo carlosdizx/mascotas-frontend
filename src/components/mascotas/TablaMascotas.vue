@@ -19,13 +19,6 @@
         <v-spacer></v-spacer>
       </v-toolbar>
     </template>
-    <template v-slot:item.acciones="{ item }">
-      <v-btn fab dark small color="red darken-4">
-        <v-icon>
-          mdi-delete
-        </v-icon>
-      </v-btn>
-    </template>
   </v-data-table>
 </template>
 
@@ -35,16 +28,27 @@ export default {
   data: () => ({
     columnas: [
       { text: "ID", align: "start", sortable: false, value: "id" },
-      { text: "Nombre", value: "nombre" }
+      { text: "Nombre", value: "nombre" },
+      { text: "Edad", value: "edad" },
+      { text: "Procedimiento", value: "procedimiento" },
+      { text: "Raza", value: "raza" },
+      { text: "Foto", value: "ruta_foto" },
+      { text: "Tipo", value: "tipo" },
     ],
     filas: []
   }),
-  props: {
-    idPropietario: String
-  },
   methods: {
     cargarInfo() {
-      this.filas = [{ id: this.$route.params.id }];
+      fetch(
+        "http://localhost/mascotas/mascota.php?all_propietario=" +
+          this.$route.params.id
+      )
+        .then(response => response.json())
+        .then(result => {
+          if (!result[0].mensaje) {
+            this.filas = result[0];
+          }
+        });
     }
   },
   mounted() {
