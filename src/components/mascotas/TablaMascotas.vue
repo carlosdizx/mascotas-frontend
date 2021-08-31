@@ -21,6 +21,11 @@
       </v-toolbar>
     </template>
     <template v-slot:item.acciones="{ item }">
+      <v-btn fab small color="info" @click="">
+        <v-icon>
+          mdi-image
+        </v-icon>
+      </v-btn>
       <v-btn fab small color="warning" @click="">
         <v-icon>
           mdi-pencil
@@ -47,11 +52,10 @@ export default {
       { text: "ID", align: "start", sortable: false, value: "id" },
       { text: "Nombre", value: "nombre" },
       { text: "Edad", value: "edad" },
-      { text: "Procedimiento", value: "procedimiento" },
       { text: "Raza", value: "raza" },
-      { text: "Foto", value: "ruta_foto" },
       { text: "Tipo", value: "tipo" },
-      { text: "Acciones", value: "acciones" }
+      { text: "Procedimiento", value: "procedimiento", sortable: false },
+      { text: "Acciones", value: "acciones", sortable: false }
     ],
     filas: []
   }),

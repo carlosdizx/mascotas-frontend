@@ -12,12 +12,18 @@
 
       <v-card-text>
         <v-container>
-          <v-form autocomplete="off" @submit.prevent="">
+          <v-form autocomplete="off" @submit.prevent="" enctype="multipart/form-data">
             <v-text-field v-model="nombre" label="Nombre" />
             <v-text-field v-model="edad" label="Apellidos" />
             <v-text-field v-model="preocedimiento" label="Documento" />
             <v-text-field v-model="raza" label="Direccion" />
-            <v-select label="Tipo de animal" :items="tipos" item-text="nombre" />
+            <v-select
+              v-model="tipo"
+              label="Tipo de animal"
+              :items="tipos"
+              item-text="nombre"
+            />
+            <v-file-input label="Imagen de la mascota" accept="image/*" />
           </v-form>
         </v-container>
       </v-card-text>
@@ -46,15 +52,17 @@ export default {
     edad: "",
     preocedimiento: "",
     raza: "",
-    tipos: []
+    tipos: [],
+    tipo: null
   }),
   methods: {
     async cargarInfo() {
-      let resultado = await fetch(
+      const resultado = await fetch(
         "http://localhost/mascotas/tipo_mascotas.php?all"
       ).then(result => result.json());
       this.tipos = resultado[0];
-    }
+    },
+    registrarMascota() {}
   },
   mounted() {
     this.cargarInfo();
