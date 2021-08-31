@@ -23,7 +23,7 @@
     <template v-slot:item.acciones="{ item }">
       <v-btn fab small color="info" @click="">
         <v-icon>
-          mdi-image
+          mdi-eye
         </v-icon>
       </v-btn>
       <v-btn fab small color="warning" @click="">
@@ -49,7 +49,6 @@ export default {
     propietario: "",
     documento: "",
     columnas: [
-      { text: "ID", align: "start", sortable: false, value: "id" },
       { text: "Nombre", value: "nombre" },
       { text: "Edad", value: "edad" },
       { text: "Raza", value: "raza" },

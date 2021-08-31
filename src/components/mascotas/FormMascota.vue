@@ -12,31 +12,45 @@
 
       <v-card-text>
         <v-container>
-          <v-form autocomplete="off" @submit.prevent="" enctype="multipart/form-data">
-            <v-text-field v-model="nombre" label="Nombre" />
-            <v-text-field v-model="edad" label="Apellidos" />
-            <v-text-field v-model="preocedimiento" label="Documento" />
-            <v-text-field v-model="raza" label="Direccion" />
+          <v-form
+            autocomplete="off"
+            @submit.prevent="registrarMascota"
+            enctype="multipart/form-data"
+            method="post"
+          >
+            <v-text-field v-model="nombre" label="Nombre" name="nombre" />
+            <v-text-field v-model="edad" label="Apellidos" name="edad" />
+            <v-text-field
+              v-model="preocedimiento"
+              label="Documento"
+              name="preocedimiento"
+            />
+            <v-text-field v-model="raza" label="Direccion" name="direccion" />
             <v-select
               v-model="tipo"
+              name="tipo"
               label="Tipo de animal"
               :items="tipos"
               item-text="nombre"
             />
-            <v-file-input label="Imagen de la mascota" accept="image/*" />
+            <v-file-input
+              name="imagen"
+              v-model="imagen"
+              label="Imagen de la mascota"
+              accept="image/*"
+            />
+            <v-card-actions>
+              <v-spacer></v-spacer>
+              <v-btn color="red darken-1" dark @click="dialog = !dialog">
+                Cancelar
+              </v-btn>
+              <v-btn color="success darken-1" type="submit">
+                Guardar
+              </v-btn>
+            </v-card-actions>
           </v-form>
         </v-container>
       </v-card-text>
-
-      <v-card-actions>
-        <v-spacer></v-spacer>
-        <v-btn color="red darken-1" dark @click="dialog = !dialog">
-          Cancelar
-        </v-btn>
-        <v-btn color="success darken-1" @click="">
-          Guardar
-        </v-btn>
-      </v-card-actions>
     </v-card>
   </v-dialog>
 </template>
@@ -53,7 +67,8 @@ export default {
     preocedimiento: "",
     raza: "",
     tipos: [],
-    tipo: null
+    tipo: null,
+    imagen: null
   }),
   methods: {
     async cargarInfo() {
@@ -62,7 +77,38 @@ export default {
       ).then(result => result.json());
       this.tipos = resultado[0];
     },
-    registrarMascota() {}
+    async registrarMascota() {
+      this.tipos.forEach(tipo => {
+        if (tipo.nombre === this.tipo) {
+          this.tipo = tipo.id;
+        }
+      });
+      const mascota = {
+        nombre: this.nombre,
+        edad: this.edad,
+        procedimiento: this.procedimiento,
+        raza: this.raza,
+        tipo: this.tipo,
+        imagen: this.imagen
+      };
+      const resultado = await fetch(
+        "http://localhost/mascotas/mascota.php?insertar",
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "multipart/form-data"
+          },
+          body: {
+            nombre: this.nombre,
+            edad: this.edad,
+            procedimiento: this.procedimiento,
+            raza: this.raza,
+            tipo: this.tipo,
+            imagen: this.imagen
+          }
+        }
+      ).then(result => result.json());
+    }
   },
   mounted() {
     this.cargarInfo();
