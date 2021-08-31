@@ -22,12 +22,14 @@
       </v-btn>
     </template>
     <template v-slot:item.id="{ item }">
-      <v-btn fab dark small color="info darken-2">
-        {{ item.id }}
-        <v-icon>
-          mdi-eye
-        </v-icon>
-      </v-btn>
+      <router-link :to="'detalles/' + item.id" v-slot="{ navigate }" custom>
+        <v-btn fab dark small color="info darken-2" @click="navigate">
+          {{ item.id }}
+          <v-icon>
+            mdi-eye
+          </v-icon>
+        </v-btn>
+      </router-link>
     </template>
   </v-data-table>
 </template>
@@ -43,8 +45,6 @@ export default {
     FormPropietarioEditar
   },
   data: () => ({
-    dialog: false,
-    dialogDelete: false,
     columnas: [
       { text: "Mas detalles", align: "start", sortable: false, value: "id" },
       { text: "Nombres", value: "nombres" },
