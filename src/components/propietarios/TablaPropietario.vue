@@ -59,7 +59,7 @@ export default {
   }),
   methods: {
     cargarPropietarios() {
-      fetch("http://localhost/mascotas/?all_propietarios")
+      fetch("http://localhost/mascotas/propietario.php?all_propietarios")
         .then(response => response.json())
         .then(result => {
           if (!result[0].mensaje) {

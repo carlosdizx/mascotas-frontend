@@ -44,7 +44,7 @@ export default {
   },
   methods: {
     cargarInfo() {
-      console.log(this.$route.params.id);
+      this.filas = [{ id: this.$route.params.id }];
     }
   },
   mounted() {

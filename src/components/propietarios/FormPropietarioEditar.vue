@@ -64,7 +64,7 @@ export default {
   methods: {
     async buscarPropietario() {
       const result = await fetch(
-        "http://localhost/mascotas/?id_propietario=" + this.id,
+        "http://localhost/mascotas/propietario.php?id_propietario=" + this.id,
         {
           method: "POST",
           body: JSON.stringify({
@@ -87,7 +87,7 @@ export default {
     },
     async actualizarPropietario() {
       const result = await fetch(
-        "http://localhost/mascotas/?id_propietario_upd",
+        "http://localhost/mascotas/propietario.php?id_propietario_upd",
         {
           method: "POST",
           body: JSON.stringify({
