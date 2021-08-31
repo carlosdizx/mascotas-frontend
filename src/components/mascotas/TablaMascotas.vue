@@ -17,7 +17,7 @@
         <v-divider class="mx-4" inset vertical></v-divider>
         <v-toolbar-title>{{ documento }}</v-toolbar-title>
         <v-spacer></v-spacer>
-        <FormMascota :id="id" />
+        <FormMascota :id="id" @refrescar="cargarInfo" />
       </v-toolbar>
     </template>
     <template v-slot:item.acciones="{ item }">

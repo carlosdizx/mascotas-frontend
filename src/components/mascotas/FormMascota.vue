@@ -82,7 +82,6 @@ export default {
     },
     async registrarMascota() {
       await this.tipos.forEach(tipo => {
-        console.log(tipo);
         if (tipo.nombre === this.tipo) {
           this.tipo = tipo.id;
         }
@@ -96,9 +95,23 @@ export default {
       formData.append("imagen", this.imagen);
       formData.append("dueño", this.id);
 
-      axios
+      let respuesta = null;
+      await axios
         .post("http://localhost/mascotas/mascota.php?insertar", formData)
-        .then(response => console.log(response.data));
+        .then(response => (respuesta = response));
+      if (respuesta.data.mensaje === "registro exitoso") {
+        await Swal.fire("Registro exitoso", "", "success");
+        this.dialog = false;
+        this.nombre = "";
+        this.edad = "";
+        this.procedimiento = "";
+        this.raza = "";
+        this.imagen = null;
+        this.tipo = null;
+        return this.$emit("refrescar");
+      } else {
+        await Swal.fire("Alerta", `${respuesta.data.mensaje}`, "success");
+      }
     }
   },
   mounted() {
