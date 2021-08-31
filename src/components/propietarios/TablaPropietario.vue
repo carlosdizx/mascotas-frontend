@@ -59,7 +59,7 @@ export default {
   }),
   methods: {
     cargarPropietarios() {
-      fetch("http://localhost/mascotas/propietario.php?all_propietarios")
+      fetch("http://localhost/clinica/mascotas/propietario.php?all_propietarios")
         .then(response => response.json())
         .then(result => {
           if (!result[0].mensaje) {
@@ -80,7 +80,7 @@ export default {
       }).then(async result => {
         if (result.isConfirmed) {
           const resultado = await fetch(
-            "http://localhost/mascotas/?id_propietario_del=" + id
+            "http://localhost/clinica/mascotas/propietario.php?id_propietario_del=" + id
           ).then(result => result.json());
           if (resultado.mensaje !== "eliminado") {
             await Swal.fire("No eliminado!", "No se pudo eliminar", "error");

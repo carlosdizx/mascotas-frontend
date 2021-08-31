@@ -27,7 +27,7 @@ if (isset($_GET["insertar"])){
     $tipo = $_POST['tipo'];
     $dueño = $_POST['dueño'];
 
-    $target_dir="C:/xampp/htdocs/mascotas/img/";
+    $target_dir="img/";
     $target_file=$target_dir.basename($imagen);
     move_uploaded_file($_FILES['imagen']['tmp_name'],$target_file);
 

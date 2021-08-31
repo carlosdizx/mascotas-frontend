@@ -53,7 +53,7 @@ export default {
   methods: {
     async crearPropietario() {
       const result = await fetch(
-        "http://localhost/mascotas/propietario.php?id_propietario_ins",
+        "http://localhost/clinica/mascotas/propietario.php?id_propietario_ins",
         {
           method: "POST",
           body: JSON.stringify({
