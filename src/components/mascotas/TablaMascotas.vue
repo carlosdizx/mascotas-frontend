@@ -17,14 +17,29 @@
         <v-divider class="mx-4" inset vertical></v-divider>
         <v-toolbar-title>{{ documento }}</v-toolbar-title>
         <v-spacer></v-spacer>
+        <FormMascota />
       </v-toolbar>
+    </template>
+    <template v-slot:item.acciones="{ item }">
+      <v-btn fab small color="warning" @click="">
+        <v-icon>
+          mdi-pencil
+        </v-icon>
+      </v-btn>
+      <v-btn fab dark small color="red darken-4" @click="">
+        <v-icon>
+          mdi-delete
+        </v-icon>
+      </v-btn>
     </template>
   </v-data-table>
 </template>
 
 <script>
+import FormMascota from "@/components/mascotas/FormMascota";
 export default {
   name: "TablaMascotas",
+  components: { FormMascota },
   data: () => ({
     propietario: "",
     documento: "",
@@ -35,7 +50,8 @@ export default {
       { text: "Procedimiento", value: "procedimiento" },
       { text: "Raza", value: "raza" },
       { text: "Foto", value: "ruta_foto" },
-      { text: "Tipo", value: "tipo" }
+      { text: "Tipo", value: "tipo" },
+      { text: "Acciones", value: "acciones" }
     ],
     filas: []
   }),

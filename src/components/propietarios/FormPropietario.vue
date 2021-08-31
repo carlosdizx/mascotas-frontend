@@ -1,5 +1,5 @@
 <template>
-  <v-dialog v-model="dialog" max-width="500px">
+  <v-dialog persistent v-model="dialog" max-width="500px">
     <template v-slot:activator="{ on, attrs }">
       <v-btn color="green darken-3" dark class="mb-2" v-bind="attrs" v-on="on">
         Nuevo propietario
@@ -43,12 +43,12 @@ export default {
   name: "FormPropietario",
   data: () => ({
     dialog: false,
-    nombres: "Carlos Ernesto",
-    apellidos: "Diaz Basante",
-    documento: "1082749257",
-    direccion: "Mz G casa 5, los heroes",
-    telefono: "3163930876",
-    correo: "carlodiaz@umariana.edu.co"
+    nombres: "",
+    apellidos: "",
+    documento: "",
+    direccion: "",
+    telefono: "",
+    correo: ""
   }),
   methods: {
     async crearPropietario() {
