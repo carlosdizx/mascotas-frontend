@@ -17,7 +17,7 @@
         <v-divider class="mx-4" inset vertical></v-divider>
         <v-toolbar-title>{{ documento }}</v-toolbar-title>
         <v-spacer></v-spacer>
-        <FormMascota />
+        <FormMascota :id="id" />
       </v-toolbar>
     </template>
     <template v-slot:item.acciones="{ item }">
@@ -56,20 +56,20 @@ export default {
       { text: "Procedimiento", value: "procedimiento", sortable: false },
       { text: "Acciones", value: "acciones", sortable: false }
     ],
-    filas: []
+    filas: [],
+    id: "0"
   }),
   methods: {
     async cargarInfo() {
+      this.id = this.$route.params.id;
       let resultado = await fetch(
-        "http://localhost/mascotas/propietario.php?id_propietario=" +
-          this.$route.params.id
+        "http://localhost/mascotas/propietario.php?id_propietario=" + this.id
       ).then(result => result.json());
       this.propietario = resultado[0].nombres + " " + resultado[0].apellidos;
       this.documento = resultado[0].documento;
 
       resultado = await fetch(
-        "http://localhost/mascotas/mascota.php?all_propietario=" +
-          this.$route.params.id
+        "http://localhost/mascotas/mascota.php?all_propietario=" + this.id
       ).then(response => response.json());
 
       if (!resultado[0].mensaje) {

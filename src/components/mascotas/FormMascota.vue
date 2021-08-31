@@ -18,24 +18,23 @@
             enctype="multipart/form-data"
             method="post"
           >
-            <v-text-field v-model="nombre" label="Nombre" name="nombre" />
-            <v-text-field v-model="edad" label="Apellidos" name="edad" />
+            <v-text-field v-model="nombre" label="Nombre" />
+            <v-text-field v-model="edad" label="Edad" />
             <v-text-field
-              v-model="preocedimiento"
-              label="Documento"
+              v-model="procedimiento"
+              label="Procedimiento"
               name="preocedimiento"
             />
-            <v-text-field v-model="raza" label="Direccion" name="direccion" />
+            <v-text-field v-model="raza" label="raza" />
             <v-select
               v-model="tipo"
-              name="tipo"
               label="Tipo de animal"
               :items="tipos"
               item-text="nombre"
             />
             <v-file-input
-              name="imagen"
               v-model="imagen"
+              type="file"
               label="Imagen de la mascota"
               accept="image/*"
             />
@@ -57,6 +56,7 @@
 
 <script>
 import Swal from "sweetalert2";
+import axios from "axios";
 
 export default {
   name: "FormMascota",
@@ -64,12 +64,15 @@ export default {
     dialog: false,
     nombre: "",
     edad: "",
-    preocedimiento: "",
+    procedimiento: "",
     raza: "",
     tipos: [],
     tipo: null,
     imagen: null
   }),
+  props: {
+    id: String
+  },
   methods: {
     async cargarInfo() {
       const resultado = await fetch(
@@ -78,36 +81,24 @@ export default {
       this.tipos = resultado[0];
     },
     async registrarMascota() {
-      this.tipos.forEach(tipo => {
+      await this.tipos.forEach(tipo => {
+        console.log(tipo);
         if (tipo.nombre === this.tipo) {
           this.tipo = tipo.id;
         }
       });
-      const mascota = {
-        nombre: this.nombre,
-        edad: this.edad,
-        procedimiento: this.procedimiento,
-        raza: this.raza,
-        tipo: this.tipo,
-        imagen: this.imagen
-      };
-      const resultado = await fetch(
-        "http://localhost/mascotas/mascota.php?insertar",
-        {
-          method: "POST",
-          headers: {
-            "Content-Type": "multipart/form-data"
-          },
-          body: {
-            nombre: this.nombre,
-            edad: this.edad,
-            procedimiento: this.procedimiento,
-            raza: this.raza,
-            tipo: this.tipo,
-            imagen: this.imagen
-          }
-        }
-      ).then(result => result.json());
+      const formData = new FormData();
+      formData.append("nombre", this.nombre);
+      formData.append("edad", this.edad);
+      formData.append("procedimiento", this.procedimiento);
+      formData.append("raza", this.raza);
+      formData.append("tipo", this.tipo);
+      formData.append("imagen", this.imagen);
+      formData.append("dueño", this.id);
+
+      axios
+        .post("http://localhost/mascotas/mascota.php?insertar", formData)
+        .then(response => console.log(response.data));
     }
   },
   mounted() {
