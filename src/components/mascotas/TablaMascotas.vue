@@ -7,7 +7,7 @@
   >
     <template v-slot:top>
       <v-toolbar flat>
-        <router-link to="/" v-slot="{navigate}" custom>
+        <router-link to="/" v-slot="{ navigate }" custom>
           <v-btn fab small color="info" @click="navigate" role="link">
             <v-icon>mdi-arrow-left</v-icon>
           </v-btn>
@@ -41,6 +41,14 @@ export default {
   }),
   props: {
     idPropietario: String
+  },
+  methods: {
+    cargarInfo() {
+      console.log(this.$route.params.id);
+    }
+  },
+  mounted() {
+    this.cargarInfo();
   }
 };
 </script>
