@@ -14,9 +14,10 @@
   </template>
   <v-card>
     <v-card-title>
-      <span class="text-h5">{{ id }}</span>
+      <span class="text-h5">{{ nombre }}</span>
     </v-card-title>
     <v-card-text>
+      <v-img src=""></v-img>
     </v-card-text>
     <v-card-actions>
       <v-btn color="red darken-1" dark @click="dialog = !dialog">
@@ -32,6 +33,7 @@ export default {
   name: "Visor",
   data: () => ({
     dialog: false,
+    nombre: ""
   }),
   props: {
     id: String
