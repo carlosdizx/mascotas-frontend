@@ -76,7 +76,7 @@ export default {
     },
     async actualizarPropietario() {
       const result = await fetch(
-        "http://localhost/mascotas/propietario.php?id_propietario_upd",
+        "http://localhost/clinica/mascotas/propietario.php?id_propietario_upd",
         {
           method: "POST",
           body: JSON.stringify({

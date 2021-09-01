@@ -17,7 +17,6 @@
       <span class="text-h5">{{ id }}</span>
     </v-card-title>
     <v-card-text>
-      <v-img src="../../../img/img2.png"/>
     </v-card-text>
     <v-card-actions>
       <v-btn color="red darken-1" dark @click="dialog = !dialog">
